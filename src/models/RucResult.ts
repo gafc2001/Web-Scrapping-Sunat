@@ -1,6 +1,7 @@
 export interface RucResult{
     ruc : string,
     tipo_contribuyente : string,
+    tipo_documento : string,
     nombre_comercial : string,
     fecha_inscripcion : Date,
     estado_contribuyente : string,
