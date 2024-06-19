@@ -9,7 +9,11 @@ import { exportData } from './utils/exportar';
 // import { busquedaCoincidencias } from './utils/rucBusqueda';
 
 const app = express();
+const cors = require('cors');
 const port = 3000;
+
+app.use(cors());
+
 
 app.get("/busqueda", (req : Request, res : CustomResponse<RucResult>) => {
 
