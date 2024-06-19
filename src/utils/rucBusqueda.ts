@@ -68,6 +68,7 @@ export const rucBusqueda = async (ruc: string): Promise<RucResult> => {
       return new Date(year, month - 1, day);
     }
 
+    //convertir a modelo usando los elementos del array
     const rucResult: RucResult = {
       ruc: resultArray[0] || '',
       tipo_contribuyente: resultArray[1] || '',

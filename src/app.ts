@@ -4,6 +4,7 @@ import { CustomResponse } from './models/Response';
 import { RazonSocial } from './models/RazonSocial';
 import { coincidenciasRazonSocial, razonSocialBusqueda } from './utils/razonSocialBusqueda';
 import { rucBusqueda } from './utils/rucBusqueda';
+import { documentoBusqueda } from './utils/documentoBusqueda';
 // import { busquedaCoincidencias } from './utils/rucBusqueda';
 
 const app = express();
@@ -18,6 +19,15 @@ app.get("/busqueda", (req : Request, res : CustomResponse<RucResult>) => {
   
   // const result : RucResult = coincidenciasRazonSocial(value);
   // res.json(result);
+});
+
+
+app.get("/documento/:tipo_documento/:n_documento", async (req : Request, res : CustomResponse<RazonSocial[]>) => {
+
+  const tipoDocumento : string | undefined = req.params.tipo_documento ?? undefined;
+  const nDocumento : string | undefined = req.params.n_documento;
+  const result : RazonSocial[] = await documentoBusqueda(tipoDocumento, nDocumento);
+  res.json(result);
 });
 
 app.get("/ruc/:ruc", async (req : Request, res : CustomResponse<RucResult>) => {
