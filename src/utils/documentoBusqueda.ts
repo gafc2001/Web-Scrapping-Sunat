@@ -50,8 +50,12 @@ export const documentoBusqueda = async (tipoDocumento: string, numeroDocumento: 
   
       return documentoResult;
     } catch (error) {
-      console.error('Error en rucBusqueda:', error);
-      throw new Error('Error en la consulta');
+      if (error instanceof Error) {
+        console.error('Error en documentoBusqueda:', error.message);
+      } else {
+        console.error('Error en documentoBusqueda:', error);
+      }
+      throw new Error('Error en la consulta. Verifique el tipo y/o numero de documento');
     } finally {
       if (browser) {
         await browser.close();
