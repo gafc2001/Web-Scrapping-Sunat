@@ -62,7 +62,7 @@ export const rucBusqueda = async (ruc: string): Promise<RucResult> => {
       return resultArray;
     });
 
-    // funcion para convertir fecha de Sunat a Date
+    // funcion para convertir fecha de SUNAT a Date
     const parseDate = (str: string): Date => {
       const [day, month, year] = str.split('/').map(Number);
       return new Date(year, month - 1, day);
