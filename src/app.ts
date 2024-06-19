@@ -5,6 +5,7 @@ import { RazonSocial } from './models/RazonSocial';
 import { coincidenciasRazonSocial, razonSocialBusqueda } from './utils/razonSocialBusqueda';
 import { rucBusqueda } from './utils/rucBusqueda';
 import { documentoBusqueda } from './utils/documentoBusqueda';
+import { exportData } from './utils/exportar';
 // import { busquedaCoincidencias } from './utils/rucBusqueda';
 
 const app = express();
@@ -60,6 +61,14 @@ app.get("/razon_social/:razon_social", async(req : Request, res : CustomResponse
   const coincidencias = await razonSocialBusqueda(value);
   res.json(coincidencias);
 })
+
+app.use(express.json());
+app.post("/download", async (req: Request, res: CustomResponse<any>) => {
+	const data = req.body.data;
+	const fileName = req.body.fileName;
+	const path = await exportData(data,fileName);
+	res.download(path);
+});
 
 
 app.listen(port, () => {

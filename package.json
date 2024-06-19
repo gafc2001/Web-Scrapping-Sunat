@@ -19,6 +19,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "exceljs": "^4.4.0",
     "puppeteer": "^22.11.2"
   }
 }
