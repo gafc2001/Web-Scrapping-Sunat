@@ -23,8 +23,27 @@ app.get("/busqueda", (req : Request, res : CustomResponse<RucResult>) => {
 
 
 app.get("/documento/:tipo_documento/:n_documento", async (req : Request, res : CustomResponse<RazonSocial[]>) => {
-
-  const tipoDocumento : string | undefined = req.params.tipo_documento ?? undefined;
+  //opciones: dni, carnet, pasaporte, cedula
+  let documentoParam: string = req.params.tipo_documento;
+  let tipoDocumento : string | undefined;
+  //convertir a valor usado en SUNAT
+  switch ( documentoParam ) {
+    case "dni":
+      tipoDocumento = "1";
+      break;
+    case "carnet":
+      tipoDocumento = "4";
+      break;
+    case "pasaporte" : 
+      tipoDocumento = "7";
+      break;
+    case "cedula" : 
+      tipoDocumento = "A";
+      break;
+    default: 
+      tipoDocumento = "0";
+      break;
+ }
   const nDocumento : string | undefined = req.params.n_documento;
   const result : RazonSocial[] = await documentoBusqueda(tipoDocumento, nDocumento);
   res.json(result);
