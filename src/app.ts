@@ -79,16 +79,14 @@ app.get("/razon_social/:razon_social", async(req : Request, res: Response<ErrorR
 })
 
 app.use(express.json());
-app.post("/download", async (req: Request, res: CustomResponse<any>,next : NextFunction) => {
+app.post("/download", async (req: Request, res: CustomResponse<any>) => {
   try{
     const data = req.body.data;
     const fileName = req.body.fileName;
     const path = await exportData(data,fileName);
     res.download(path);
-  }catch(err : any){
-    res.json({
-      msg : err.message
-    })
+  }catch(error : any){
+    res.status(500).json({ error: error.message });
   }
 });
 
