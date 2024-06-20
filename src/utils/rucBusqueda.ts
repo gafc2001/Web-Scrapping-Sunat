@@ -93,8 +93,12 @@ export const rucBusqueda = async (ruc: string): Promise<RucResult> => {
 
     return rucResult;;
   } catch (error) {
-    console.error('Error en rucBusqueda:', error);
-    throw new Error('Error en la consulta');
+    if (error instanceof Error) {
+      console.error('Error en rucBusqueda:', error.message);
+    } else {
+      console.error('Error en rucBusqueda:', error);
+    }
+    throw new Error('Error en la consulta. Verifique el numero de RUC');
   } finally {
     if (browser) {
       await browser.close();

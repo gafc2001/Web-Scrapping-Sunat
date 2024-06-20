@@ -45,8 +45,13 @@ export const razonSocialBusqueda = async (razonSocial : string) : Promise<RazonS
       })
       return results;
     });
-  }catch(err){
-    console.log(err);
+  }catch(error){
+    if (error instanceof Error) {
+      console.error('Error en razonSocialBusqueda:', error.message);
+    } else {
+      console.error('Error en razonSocialBusqueda:', error);
+    }
+    throw new Error('Error en la consulta. Verifique la razon social');
   }
   await browser.close();
   return coincidencias;
