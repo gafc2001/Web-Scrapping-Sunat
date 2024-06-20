@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import { RucResult } from './models/RucResult';
 import { CustomResponse } from './models/Response';
 import { RazonSocial } from './models/RazonSocial';
@@ -67,11 +67,17 @@ app.get("/razon_social/:razon_social", async(req : Request, res : CustomResponse
 })
 
 app.use(express.json());
-app.post("/download", async (req: Request, res: CustomResponse<any>) => {
-	const data = req.body.data;
-	const fileName = req.body.fileName;
-	const path = await exportData(data,fileName);
-	res.download(path);
+app.post("/download", async (req: Request, res: CustomResponse<any>,next : NextFunction) => {
+  try{
+    const data = req.body.data;
+    const fileName = req.body.fileName;
+    const path = await exportData(data,fileName);
+    res.download(path);
+  }catch(err : any){
+    res.json({
+      msg : err.message
+    })
+  }
 });
 
 
