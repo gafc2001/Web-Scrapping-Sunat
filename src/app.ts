@@ -6,6 +6,7 @@ import { coincidenciasRazonSocial, razonSocialBusqueda } from './utils/razonSoci
 import { rucBusqueda } from './utils/rucBusqueda';
 import { documentoBusqueda } from './utils/documentoBusqueda';
 import { exportData } from './utils/exportar';
+import cors from 'cors';
 // import { busquedaCoincidencias } from './utils/rucBusqueda';
 
 const app = express();
