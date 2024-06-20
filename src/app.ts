@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import { RucResult } from './models/RucResult';
 import { CustomResponse, ErrorResponseRazonSocial, ErrorResponseRucResult } from './models/Responses';
 import { RazonSocial } from './models/RazonSocial';
@@ -10,9 +10,11 @@ import cors from 'cors';
 // import { busquedaCoincidencias } from './utils/rucBusqueda';
 
 const app = express();
+const cors = require('cors');
 const port = 3000;
 
 app.use(cors());
+
 
 app.get("/busqueda", (req : Request, res : CustomResponse<RucResult>) => {
 
@@ -79,10 +81,14 @@ app.get("/razon_social/:razon_social", async(req : Request, res: Response<ErrorR
 
 app.use(express.json());
 app.post("/download", async (req: Request, res: CustomResponse<any>) => {
-	const data = req.body.data;
-	const fileName = req.body.fileName;
-	const path = await exportData(data,fileName);
-	res.download(path);
+  try{
+    const data = req.body.data;
+    const fileName = req.body.fileName;
+    const path = await exportData(data,fileName);
+    res.download(path);
+  }catch(error : any){
+    res.status(500).json({ error: error.message });
+  }
 });
 
 
