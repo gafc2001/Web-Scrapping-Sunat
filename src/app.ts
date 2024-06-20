@@ -6,7 +6,6 @@ import { coincidenciasRazonSocial, razonSocialBusqueda } from './utils/razonSoci
 import { rucBusqueda } from './utils/rucBusqueda';
 import { documentoBusqueda } from './utils/documentoBusqueda';
 import { exportData } from './utils/exportar';
-import cors from 'cors';
 // import { busquedaCoincidencias } from './utils/rucBusqueda';
 
 const app = express();
@@ -14,7 +13,6 @@ const cors = require('cors');
 const port = 3000;
 
 app.use(cors());
-
 
 app.get("/busqueda", (req : Request, res : CustomResponse<RucResult>) => {
 
