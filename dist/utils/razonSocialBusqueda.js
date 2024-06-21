@@ -10,12 +10,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.coincidenciasRazonSocial = exports.razonSocialBusqueda = void 0;
+const chromium = require('@sparticuz/chromium');
+const puppeteerCore = require('puppeteer-core');
 const puppeteer = require('puppeteer');
 const razonSocialBusqueda = (razonSocial) => __awaiter(void 0, void 0, void 0, function* () {
     let coincidencias = [];
     const browser = yield puppeteer.launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: yield chromium.executablePath(),
+        headless: chromium.headless,
+        ignoreHTTPSErrors: true,
     });
     const page = yield browser.newPage();
     try {

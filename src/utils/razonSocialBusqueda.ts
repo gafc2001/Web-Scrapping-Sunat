@@ -1,12 +1,17 @@
 import { RazonSocial } from "../models/RazonSocial";
 
+const chromium = require('@sparticuz/chromium');
+const puppeteerCore = require('puppeteer-core');
 const puppeteer = require('puppeteer');
 
 export const razonSocialBusqueda = async (razonSocial : string) : Promise<RazonSocial[]>=> {
   let coincidencias = [];
   const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath(),
+    headless: chromium.headless,
+    ignoreHTTPSErrors: true,
   });
   const page = await browser.newPage();
 

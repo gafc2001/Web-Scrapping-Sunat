@@ -1,5 +1,6 @@
 import { RazonSocial } from "../models/RazonSocial";
-import { RucResult } from "../models/RucResult";
+import chromium from '@sparticuz/chromium';
+import puppeteerCore from 'puppeteer-core';
 
 const puppeteer = require('puppeteer');
 
@@ -9,9 +10,11 @@ export const documentoBusqueda = async (tipoDocumento: string, numeroDocumento: 
     let browser: typeof Browser | null = null;
     
     try {
-      browser = await puppeteer.launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
+      browser = await puppeteerCore.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
+        headless: chromium.headless,
       });
   
       const page: typeof Page = await browser.newPage();

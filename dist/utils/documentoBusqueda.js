@@ -8,16 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.documentoBusqueda = void 0;
+const chromium_1 = __importDefault(require("@sparticuz/chromium"));
+const puppeteer_core_1 = __importDefault(require("puppeteer-core"));
 const puppeteer = require('puppeteer');
 const { Browser, Page } = puppeteer;
 const documentoBusqueda = (tipoDocumento, numeroDocumento) => __awaiter(void 0, void 0, void 0, function* () {
     let browser = null;
     try {
-        browser = yield puppeteer.launch({
-            headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        browser = yield puppeteer_core_1.default.launch({
+            args: chromium_1.default.args,
+            defaultViewport: chromium_1.default.defaultViewport,
+            executablePath: yield chromium_1.default.executablePath(),
+            headless: chromium_1.default.headless,
         });
         const page = yield browser.newPage();
         yield page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');

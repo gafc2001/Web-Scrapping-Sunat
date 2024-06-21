@@ -23,14 +23,16 @@
     "typescript": "^5.5.2"
   },
   "dependencies": {
+    "@sparticuz/chromium": "^123.0.0",
     "cors": "^2.8.5",
     "exceljs": "^4.4.0",
     "express": "^4.19.2",
-    "puppeteer": "^22.11.2"
+    "puppeteer": "^22.11.0",
+    "puppeteer-core": "^22.11.0"
   },
   "pre-commit": [
-      "ts.check",
-      "build",
-      "add-build"
+    "ts.check",
+    "build",
+    "add-build"
   ]
 }
