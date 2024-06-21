@@ -25,7 +25,9 @@ app.get("/busqueda", (req : Request, res : CustomResponse<RucResult>) => {
   // res.json(result);
 });
 
-
+app.get('/', (req, res) => {
+  res.json({msg : "SUNAT WEBSCRAPPING"})
+})
 app.get("/documento/:tipo_documento/:n_documento", async (req: Request, res: Response<ErrorResponseRazonSocial>) => {
   try{
     //opciones: dni, carnet, pasaporte, cedula
