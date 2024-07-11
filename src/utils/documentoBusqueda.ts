@@ -26,7 +26,11 @@ export const documentoBusqueda = async (tipoDocumento: string, numeroDocumento: 
       
       await page.type('#txtNumeroDocumento', numeroDocumento);
       await page.waitForSelector('#txtNumeroDocumento');
-  
+      
+      await page.on("dialog",async () => {
+        browser.close();
+      })
+
       await page.click('#btnAceptar');
   
       await page.waitForSelector(".list-group-item.clearfix.aRucs");

@@ -20,6 +20,9 @@ export const rucBusqueda = async (ruc: string): Promise<RucResult> => {
     await page.waitForSelector('#txtRuc');
     await page.type('#txtRuc', ruc);
 
+	await page.on("dialog",async () => {
+		browser.close();
+	})
     await Promise.all([
       page.waitForNavigation({ waitUntil: 'networkidle2' }),
       page.click('#btnAceptar'),

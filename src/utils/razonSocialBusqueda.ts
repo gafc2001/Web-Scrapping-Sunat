@@ -18,13 +18,16 @@ export const razonSocialBusqueda = async (razonSocial : string) : Promise<RazonS
     await page.goto('https://e-consultaruc.sunat.gob.pe/cl-ti-itmrconsruc/FrameCriterioBusquedaWeb.jsp', { waitUntil: 'networkidle2' });
   
     await page.waitForSelector('#btnPorRazonSocial');
-  
+
     await page.click('#btnPorRazonSocial');
   
     await page.waitForSelector('#txtNombreRazonSocial');
     await page.type('#txtNombreRazonSocial', razonSocial);
   
     await page.waitForSelector('#txtNombreRazonSocial');
+    await page.on("dialog",async () => {
+      browser.close();
+    })
     await page.click('#btnAceptar');
   
   
