@@ -1,5 +1,6 @@
 export interface RucResult{
     ruc : string,
+    razon_social : string,
     tipo_contribuyente : string,
     tipo_documento : string,
     nombre_comercial : string,
