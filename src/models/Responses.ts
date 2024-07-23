@@ -16,4 +16,9 @@ export interface ErrorResponseRazonSocial {
 export interface ErrorResponseRucResult {
    error?: string;
    data?: RucResult;
- }
+}
+
+export interface ResponseData {
+   error?: string;
+   data?: any
+}

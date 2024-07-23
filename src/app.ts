@@ -1,11 +1,12 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { RucResult } from './models/RucResult';
-import { CustomResponse, ErrorResponseRazonSocial, ErrorResponseRucResult } from './models/Responses';
+import { CustomResponse, ErrorResponseRazonSocial, ErrorResponseRucResult, ResponseData } from './models/Responses';
 import { RazonSocial } from './models/RazonSocial';
-import { coincidenciasRazonSocial, razonSocialBusqueda } from './utils/razonSocialBusqueda';
+import { razonSocialBusqueda } from './utils/razonSocialBusqueda';
 import { rucBusqueda } from './utils/rucBusqueda';
 import { documentoBusqueda } from './utils/documentoBusqueda';
 import { exportData } from './utils/exportar';
+import { getSireToken } from './utils/sireToken';
 // import { busquedaCoincidencias } from './utils/rucBusqueda';
 
 const app = express();
@@ -13,18 +14,6 @@ const cors = require('cors');
 const port = 3000;
 
 app.use(cors());
-
-app.get("/busqueda", (req : Request, res : CustomResponse<RucResult>) => {
-
-  const tipoBusqueda : string | undefined = req.get("tipo_busqueda");
-  const tipoDocumento : string | undefined = req.get("tipoDocumento");
-  const value : string | undefined = req.get("value");
-
-  
-  // const result : RucResult = coincidenciasRazonSocial(value);
-  // res.json(result);
-});
-
 
 app.get("/documento/:tipo_documento/:n_documento", async (req: Request, res: Response<ErrorResponseRazonSocial>) => {
   try{
@@ -76,6 +65,17 @@ app.get("/razon_social/:razon_social", async(req : Request, res: Response<ErrorR
     res.status(500).json({ error: error.message });
   }
 })
+
+app.post("/sire-token", async(req : Request, res: Response<ResponseData>) => {
+  try{
+    const response = await getSireToken();
+    return res.send({
+      data : response
+    });
+  }catch(error : any){
+    return res.status(500).send({error : error.message});
+  }
+});
 
 app.use(express.json());
 app.post("/download", async (req: Request, res: CustomResponse<any>) => {
