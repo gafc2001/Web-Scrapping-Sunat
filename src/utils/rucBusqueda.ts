@@ -1,3 +1,4 @@
+import { text } from "stream/consumers";
 import { RucResult } from "../models/RucResult";
 
 const puppeteer = require('puppeteer');
@@ -87,10 +88,13 @@ export const rucBusqueda = async (ruc: string): Promise<RucResult> => {
 		}
 
 		//convertir a modelo usando los elementos del array
-		const rucArr = resultArray["Número de RUC:"].split("-").map((el : string)=> el.trim());
+		const textRucName : string  = resultArray["Número de RUC:"];
+		const indexOfLine = textRucName.indexOf("-");
+		const rucValue = textRucName.slice(0,indexOfLine).trim();
+		const razonSocial = textRucName.slice(indexOfLine + 1,textRucName.length).trim();
 		const rucResult: RucResult = {
-			ruc: rucArr[0],
-			razon_social: rucArr[1],
+			ruc: rucValue,
+			razon_social: razonSocial,
 			tipo_contribuyente: resultArray["Tipo Contribuyente:"] || '',
 			tipo_documento: resultArray["Tipo de Documento:"] || '',
 			nombre_comercial: resultArray["Nombre Comercial:"] || '',
