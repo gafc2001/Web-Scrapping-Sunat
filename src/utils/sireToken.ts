@@ -4,10 +4,14 @@ const puppeteer = require('puppeteer');
 
 const { Browser, Page,HTTPRequest } = puppeteer;
 
-export async function getSireToken(){
+export async function getSireToken(
+    ruc : string,
+    usuario : string,
+    clave : string,
+){
     let message = "";
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
     });
     var page = await browser.newPage();
     try{
@@ -25,13 +29,13 @@ export async function getSireToken(){
         await page.setViewport({width: 1080, height: 1024});
     
         await page.waitForSelector('#txtRuc');
-        await page.type('#txtRuc', "20535014940");
+        await page.type('#txtRuc', ruc);
     
         await page.waitForSelector('#txtUsuario');
-        await page.type('#txtUsuario', "OGYMOZON");
+        await page.type('#txtUsuario', usuario);
     
         await page.waitForSelector('#txtContrasena');
-        await page.type('#txtContrasena', "CHRISTIAN");
+        await page.type('#txtContrasena', clave);
         
         await page.waitForSelector('#btnAceptar');
         

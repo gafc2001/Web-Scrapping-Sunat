@@ -66,9 +66,15 @@ app.get("/razon_social/:razon_social", async(req : Request, res: Response<ErrorR
   }
 })
 
+
+app.use(express.json());
+
 app.post("/sire-token", async(req : Request, res: Response<ResponseData>) => {
   try{
-    const response = await getSireToken();
+    const ruc = req.body.ruc;
+    const usuario = req.body.clave;
+    const clave = req.body.clave;
+    const response = await getSireToken(ruc,usuario,clave);
     return res.send({
       data : response
     });
@@ -77,7 +83,6 @@ app.post("/sire-token", async(req : Request, res: Response<ResponseData>) => {
   }
 });
 
-app.use(express.json());
 app.post("/download", async (req: Request, res: CustomResponse<any>) => {
   try{
     const data = req.body.data;
