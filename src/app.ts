@@ -72,7 +72,7 @@ app.use(express.json());
 app.post("/sire-token", async(req : Request, res: Response<ResponseData>) => {
   try{
     const ruc = req.body.ruc;
-    const usuario = req.body.clave;
+    const usuario = req.body.usuario;
     const clave = req.body.clave;
     const response = await getSireToken(ruc,usuario,clave);
     return res.send({
